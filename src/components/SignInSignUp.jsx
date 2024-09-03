@@ -1,4 +1,6 @@
+
 import React, { useState } from "react";
+import axios from "axios";
 
 const SignInSignUpModal = ({ isOpen, onClose, onSignIn }) => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -6,25 +8,31 @@ const SignInSignUpModal = ({ isOpen, onClose, onSignIn }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSignIn = () => {
-    const storedUsername = localStorage.getItem("username");
-    const storedPassword = localStorage.getItem("password");
-
-    if (username === storedUsername && password === storedPassword) {
+  const handleSignIn = async () => {
+    try {
+      const response = await axios.post("/api/signin", {
+        username,
+        password,
+      });
       setError("");
-      localStorage.setItem("loggedIn", true);
       onSignIn(true);
       onClose();
-    } else {
-      setError("Invalid username or password");
+    } catch (error) {
+      setError(error.response?.data?.message || "Error signing in");
     }
   };
 
-  const handleSignUp = () => {
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
-    setError("");
-    setIsSignIn(true);
+  const handleSignUp = async () => {
+    try {
+      const response = await axios.post("/api/signup", {
+        username,
+        password,
+      });
+      setError("");
+      setIsSignIn(true);
+    } catch (error) {
+      setError(error.response?.data?.message || "Error signing up");
+    }
   };
 
   return (

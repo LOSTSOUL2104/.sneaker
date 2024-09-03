@@ -46,4 +46,38 @@
   .scrolled {
     @apply opacity-90 transition-all duration-150 ease-in;
   }
+  .text-c8b6ff {
+    @apply text-[#C8B6FF];
+  }
+  .bg-9a79ff {
+    @apply bg-[#9A79FF];
+  }
+  .bg-d1c2ff {
+    @apply bg-[#D1C2FF];
+  }
+  .text-slate-gray {
+    @apply text-[#708090];
+  }
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+.loader {
+  @apply w-80 h-[50px] relative;
+}
+
+.loader-text {
+  @apply absolute top-0 p-0 m-0 text-c8b6ff;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.load {
+  @apply bg-9a79ff rounded-full block h-16 w-16 bottom-0 absolute transform translate-x-64;
+  animation: spin 2s linear infinite;
+}
+
+.load::before {
+  @apply absolute w-full h-full bg-d1c2ff rounded-full;
+  animation: pulse 2s ease-in-out infinite;
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { star } from "../assets/icons";
 
 const PopularProductCard = ({
@@ -7,14 +8,22 @@ const PopularProductCard = ({
   setSelected,
   selected,
   product,
+  addToCart,
+  onAddToCartClick,
 }) => {
   const handleClick = (product) => {
-    if (selected != product || !selected) {
+    if (selected !== product || !selected) {
       setSelected(product);
     } else {
       setSelected(null);
     }
   };
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    onAddToCartClick();
+  };
+
   return (
     <div
       onClick={() => handleClick(product)}
@@ -35,6 +44,15 @@ const PopularProductCard = ({
       <p className="mt-2 text-2xl font-semibold leading-normal font-montserrat text-coral-red">
         {price}
       </p>
+      <button
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent the click from triggering the handleClick function
+          handleAddToCart();
+        }}
+        className="mt-4 px-4 py-2 bg-coral-red text-white rounded-lg"
+      >
+        Add to Cart
+      </button>
     </div>
   );
 };
